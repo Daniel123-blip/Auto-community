@@ -1,222 +1,173 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  Hello world
-  <script src="script.js"></script>
-</body>
-
-</html>
-<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Auto Community</title>
   <style>
-    /* Reset & basis */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      background: #121212;
-      color: #eee;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background: #1f1f1f;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #ff3f3f;
-    }
-    header h1 {
-      color: #ff3f3f;
-      font-weight: 700;
-    }
-    nav a {
-      color: #eee;
-      margin-left: 1.5rem;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-    nav a:hover, nav a.active {
-      color: #ff3f3f;
-    }
-    main {
-      flex-grow: 1;
-      padding: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    footer {
-      background: #1f1f1f;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
-    }
-    /* Pagina's verborgen standaard */
-    section {
-      display: none;
-      animation: fadeIn 0.5s ease forwards;
-    }
-    section.active {
-      display: block;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #121212; color: #eee; display: flex; flex-direction: column; min-height: 100vh; }
+    header { background: #1f1f1f; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff3f3f; }
+    header h1 { color: #ff3f3f; font-weight: 700; }
+    nav a { color: #eee; margin-left: 1.5rem; text-decoration: none; font-weight: 600; transition: color 0.3s; }
+    nav a:hover, nav a.active { color: #ff3f3f; }
+    main { flex-grow: 1; padding: 2rem; max-width: 900px; margin: 0 auto; width: 100%; }
+    footer { background: #1f1f1f; padding: 1rem; text-align: center; font-size: 0.9rem; color: #888; }
+    section { display: none; animation: fadeIn 0.5s ease forwards; }
+    section.active { display: block; }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+    /* Home carrousel */
+    .carousel { display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 0; }
+    .carousel img { height: 150px; border-radius: 10px; transition: transform 0.3s; cursor: pointer; }
+    .carousel img:hover { transform: scale(1.1); }
+
     /* Chat styles */
-    #chat {
-      display: flex;
-      flex-direction: column;
-      height: 400px;
-      border: 1px solid #333;
-      border-radius: 8px;
-      background: #222;
-      overflow: hidden;
-    }
-    #chatMessages {
-      flex-grow: 1;
-      padding: 1rem;
-      overflow-y: auto;
-      font-size: 1rem;
-    }
-    #chatInputForm {
-      display: flex;
-      border-top: 1px solid #333;
-    }
-    #chatInput {
-      flex-grow: 1;
-      border: none;
-      padding: 1rem;
-      font-size: 1rem;
-      background: #1a1a1a;
-      color: #eee;
-    }
-    #chatInput:focus {
-      outline: none;
-      background: #222;
-    }
-    #chatSendBtn {
-      background: #ff3f3f;
-      border: none;
-      color: white;
-      padding: 0 1.5rem;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background 0.3s;
-    }
-    #chatSendBtn:hover {
-      background: #e62e2e;
-    }
-    /* Kleine responsiviteit */
+    #chat { display: flex; flex-direction: column; height: 400px; border: 1px solid #333; border-radius: 8px; background: #222; overflow: hidden; }
+    #chatMessages { flex-grow: 1; padding: 1rem; overflow-y: auto; font-size: 1rem; }
+    #chatInputForm { display: flex; border-top: 1px solid #333; }
+    #chatInput { flex-grow: 1; border: none; padding: 1rem; font-size: 1rem; background: #1a1a1a; color: #eee; }
+    #chatInput:focus { outline: none; background: #222; }
+    #chatSendBtn { background: #ff3f3f; border: none; color: white; padding: 0 1.5rem; cursor: pointer; font-weight: 700; transition: background 0.3s; }
+    #chatSendBtn:hover { background: #e62e2e; }
+
+    /* Profiles */
+    .profiles { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+    .profile { background: #1a1a1a; padding: 1rem; border-radius: 8px; width: calc(33% - 1rem); text-align: center; }
+
+    /* Polls */
+    .poll { margin: 1rem 0; background: #1a1a1a; padding: 1rem; border-radius: 8px; }
+
+    /* Garage */
+    .garage { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+    .garage-item { background: #1a1a1a; padding: 1rem; border-radius: 8px; width: calc(50% - 1rem); }
+
     @media (max-width: 600px) {
-      header, main {
-        padding: 1rem;
-      }
-      nav a {
-        margin-left: 1rem;
-      }
+      header, main { padding: 1rem; }
+      nav a { margin-left: 1rem; }
+      .profile, .garage-item { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Auto Community</h1>
-    <nav>
-      <a href="#" class="nav-link active" data-target="home">Home</a>
-      <a href="#" class="nav-link" data-target="about">Over mij</a>
-      <a href="#" class="nav-link" data-target="chat">Chat</a>
-    </nav>
-  </header>
+<header>
+  <h1>Auto Community</h1>
+  <nav>
+    <a href="#" class="nav-link active" data-target="home">Home</a>
+    <a href="#" class="nav-link" data-target="about">Over mij</a>
+    <a href="#" class="nav-link" data-target="chat">Chat</a>
+    <a href="#" class="nav-link" data-target="garage">Garage</a>
+  </nav>
+</header>
 
-  <main>
-    <section id="home" class="active">
-      <h2>Welkom bij de Auto Community!</h2>
-      <p>Hier delen we alles over auto's, van tuning tot evenementen en de nieuwste modellen. Doe mee en praat mee met andere autoliefhebbers!</p>
-    </section>
+<main>
+  <section id="home" class="active">
+    <h2>Welkom bij de Auto Community!</h2>
+    <p>Hier delen we alles over auto's, van tuning tot evenementen en de nieuwste modellen. Doe mee en praat mee met andere autoliefhebbers!</p>
 
-    <section id="about">
-      <h2>Over mij</h2>
-      <p>Hoi! Ik ben een autoliefhebber die deze community gestart is om mensen samen te brengen die net zo gek zijn op auto's als ik. Samen maken we er een gave plek van!</p>
-    </section>
+    <h3>Top Auto’s van de Maand</h3>
+    <div class="carousel">
+      <img src="https://via.placeholder.com/250x150?text=Auto+1" alt="Auto 1">
+      <img src="https://via.placeholder.com/250x150?text=Auto+2" alt="Auto 2">
+      <img src="https://via.placeholder.com/250x150?text=Auto+3" alt="Auto 3">
+    </div>
 
-    <section id="chat">
-      <h2>Chat met andere leden</h2>
-      <div id="chat">
-        <div id="chatMessages"></div>
-        <form id="chatInputForm">
-          <input type="text" id="chatInput" placeholder="Typ je bericht..." autocomplete="off" required />
-          <button type="submit" id="chatSendBtn">Verstuur</button>
-        </form>
+    <div class="poll">
+      <h4>Wat is je favoriete merk?</h4>
+      <label><input type="radio" name="merk"> BMW</label><br>
+      <label><input type="radio" name="merk"> Audi</label><br>
+      <label><input type="radio" name="merk"> Mercedes</label><br>
+      <button>Stem</button>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>Over mij</h2>
+    <p>Hoi! Ik ben een autoliefhebber die deze community gestart is om mensen samen te brengen die net zo gek zijn op auto's als ik. Samen maken we er een gave plek van!</p>
+
+    <h3>Leden Profielen</h3>
+    <div class="profiles">
+      <div class="profile">
+        <h4>Max</h4>
+        <p>Favoriete auto: Nissan GT-R</p>
       </div>
-    </section>
-  </main>
+      <div class="profile">
+        <h4>Sophie</h4>
+        <p>Favoriete auto: Porsche 911</p>
+      </div>
+      <div class="profile">
+        <h4>Liam</h4>
+        <p>Favoriete auto: Lamborghini Huracán</p>
+      </div>
+    </div>
+  </section>
 
-  <footer>
-    &copy; 2025 Auto Community. Alle rechten voorbehouden.
-  </footer>
+  <section id="chat">
+    <h2>Chat met andere leden</h2>
+    <div id="chat">
+      <div id="chatMessages"></div>
+      <form id="chatInputForm">
+        <input type="text" id="chatInput" placeholder="Typ je bericht..." autocomplete="off" required />
+        <button type="submit" id="chatSendBtn">Verstuur</button>
+      </form>
+    </div>
+  </section>
 
-  <script>
-    // Navigatie
-    const links = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('main section');
+  <section id="garage">
+    <h2>Community Garage</h2>
+    <div class="garage">
+      <div class="garage-item">
+        <h4>Nissan GT-R R35</h4>
+        <p>Specs: 600PK, 0-100km/h in 2.9s</p>
+      </div>
+      <div class="garage-item">
+        <h4>Lamborghini Aventador</h4>
+        <p>Specs: 770PK, 0-100km/h in 2.8s</p>
+      </div>
+      <div class="garage-item">
+        <h4>Porsche 911 Turbo S</h4>
+        <p>Specs: 650PK, 0-100km/h in 2.7s</p>
+      </div>
+    </div>
+  </section>
+</main>
 
-    links.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.getAttribute('data-target');
+<footer>
+  &copy; 2025 Auto Community. Alle rechten voorbehouden.
+</footer>
 
-        // Activeer link en section
-        links.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-
-        sections.forEach(section => {
-          section.id === target ? section.classList.add('active') : section.classList.remove('active');
-        });
-      });
-    });
-
-    // Simpele chatfunctie (zonder backend)
-    const chatForm = document.getElementById('chatInputForm');
-    const chatInput = document.getElementById('chatInput');
-    const chatMessages = document.getElementById('chatMessages');
-
-    chatForm.addEventListener('submit', e => {
+<script>
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('main section');
+  links.forEach(link => {
+    link.addEventListener('click', e => {
       e.preventDefault();
-      const msg = chatInput.value.trim();
-      if (msg === '') return;
-
-      const msgEl = document.createElement('div');
-      msgEl.textContent = "Jij: " + msg;
-      msgEl.style.padding = '5px 10px';
-      msgEl.style.marginBottom = '5px';
-      msgEl.style.backgroundColor = '#333';
-      msgEl.style.borderRadius = '5px';
-
-      chatMessages.appendChild(msgEl);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      chatInput.value = '';
+      const target = link.getAttribute('data-target');
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      sections.forEach(section => { section.id === target ? section.classList.add('active') : section.classList.remove('active'); });
     });
-  </script>
+  });
+
+  const chatForm = document.getElementById('chatInputForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
+  chatForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = chatInput.value.trim();
+    if (msg === '') return;
+    const msgEl = document.createElement('div');
+    msgEl.textContent = "Jij: " + msg;
+    msgEl.style.padding = '5px 10px';
+    msgEl.style.marginBottom = '5px';
+    msgEl.style.backgroundColor = '#333';
+    msgEl.style.borderRadius = '5px';
+    chatMessages.appendChild(msgEl);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    chatInput.value = '';
+  });
+</script>
 
 </body>
 </html>
